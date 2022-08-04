@@ -11,7 +11,9 @@ images.player.src = 'sprites/character.png'
 
 // Array of rows of sprite sheet.
 
-const characterActions = [' up', 'top right', 'right', 'down right', 'down', 'jump'];
+//const characterActions = [' up', 'top right', 'right', 'down right', 'down', 'jump'];
+const characterActions = ['up', 'right', 'jump','down right']
+const numberOfCharacters = 10
 const characters = [];
 
 class Character {
@@ -19,11 +21,32 @@ class Character {
         this.width = 103.0625;
         this.height = 113.125;
         this.frameX = 3;
-        this.frameY = 3;
-        this.x = 0;
+
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height
         this.y = 0;
         this.speed = (Math.random() * 1.5) + 3.5;
-        this.action = 'right'
+        this.action = characterActions[Math.floor(Math.random() * characterActions.length)];
+
+        if (this.action === 'up') {
+            this.frameY = 0;
+            this.minFrame = 4;
+            this.maxFrame = 15;
+
+        } else if (this.action === 'right') {
+            this.frameY = 3
+            this.minFrame = 3;
+            this.maxFrame = 13;
+        } else if (this.action === 'jump') {
+            this.frameY = 7
+            this.minFrame = 0;
+            this.maxFrame = 9;
+        } else if (this.action === 'down right') {
+            this.frameY = 4
+            this.minFrame = 4;
+            this.maxFrame = 15;
+        }
+
     }
     draw() {
         // Call drawSprite() function to draw image on canvas.
@@ -33,20 +56,35 @@ class Character {
             this.width, this.height,
             this.x, this.y, this.width, this.height)
         //animate sprites
-        if (this.frameX < 13) this.frameX++;
-        else this.frameX = 3;
+        if (this.frameX < this.maxFrame) this.frameX++;
+        else this.frameX = this.minFrame;
     }
     update() {
         if (this.action === 'right') {
-            if (this.x < canvas.width + this.width) this.x += this.speed;
-            else {this.x = 0 - this.width;
-                //randomise value of y of Sprite on Canvas
-            this.y = Math.random()*(canvas.height-this.height)} 
+            if (this.x > canvas.width + this.width) {
+                this.x = 0 - this.width;
+                this.y = Math.random() * (canvas.height - this.height)
+            }
+            else {
+                this.x += this.speed;
+            }
+        }
+        else if (this.action === 'up') {
+            if (this.y < (0 - this.height)) {
+                this.y = canvas.height + this.height;
+                this.x = Math.random() * canvas.width;
+            } else {
+                this.y -= this.speed;
+            }
         }
     }
 }
 
-characters.push(new Character())
+for (i = 0; i < numberOfCharacters; i++) {
+    characters.push(new Character())
+}
+
+
 
 /*const playerWidth = 103.0625
 const playerHeight = 113.125
@@ -82,9 +120,10 @@ function animate() {
     // move player
     if (playerX < canvas.width + playerWidth) playerX += playerSpeed;
     else playerX = 0 - playerWidth*/
-
-    characters[0].draw();
-    characters[0].update();
+    for (i = 0; i < characters.length; i++) {
+        characters[i].draw();
+        characters[i].update();
+    }
 }
 
 // Animate at intervals
