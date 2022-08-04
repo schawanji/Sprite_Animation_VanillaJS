@@ -39,7 +39,9 @@ class Character {
     update() {
         if (this.action === 'right') {
             if (this.x < canvas.width + this.width) this.x += this.speed;
-            else this.x = 0 - this.width
+            else {this.x = 0 - this.width;
+                //randomise value of y of Sprite on Canvas
+            this.y = Math.random()*(canvas.height-this.height)} 
         }
     }
 }
