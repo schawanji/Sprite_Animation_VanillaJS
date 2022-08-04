@@ -9,8 +9,8 @@ const images = {};
 images.player = new Image();
 images.player.src = 'sprites/character.png'
 
-const playerWidth = '103.0625'
-const playerHeight = '113.125'
+const playerWidth = 103.0625
+const playerHeight = 113.125
 
 // Location of sprite is in the image
 let playerFrameX = 3;
@@ -38,6 +38,13 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     // Call drawSprite() function to draw image on canvas.
     drawSprite(images.player, playerWidth * playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, playerX, playerY, playerWidth, playerHeight)
+    //animate sprites
+    if (playerFrameX < 13) playerFrameX++;
+    else playerFrameX = 3;
+
+    // move player
+    if (playerX < canvas.width + playerWidth) playerX += playerSpeed;
+    else playerX = 0- playerWidth
 
 }
 
