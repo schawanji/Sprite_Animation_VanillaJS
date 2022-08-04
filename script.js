@@ -12,7 +12,7 @@ images.player.src = 'sprites/character.png'
 // Array of rows of sprite sheet.
 
 //const characterActions = [' up', 'top right', 'right', 'down right', 'down', 'jump'];
-const characterActions = ['up', 'right', 'jump','down right']
+const characterActions = ['up', 'right', 'jump', 'down right']
 const numberOfCharacters = 10
 const characters = [];
 
